@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Photo, Vidéo, Design & 3D</title>
+    <!-- Police sans empattement moderne et élégante : Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- BARRE DE NAVIGATION ÉPURÉE : PAGES À GAUCHE, LANGUES À DROITE -->
+    <header>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><button onclick="afficherSection('accueil')" class="nav-btn active" id="btn-accueil" data-i18n="nav_accueil">Accueil</button></li>
+                <li><button onclick="afficherSection('photos')" class="nav-btn" id="btn-photos" data-i18n="nav_photos">Photos</button></li>
+                <li><button onclick="afficherSection('videos')" class="nav-btn" id="btn-videos" data-i18n="nav_videos">Vidéos</button></li>
+                <li><button onclick="afficherSection('design')" class="nav-btn" id="btn-design" data-i18n="nav_design">Design</button></li>
+                <li><button onclick="afficherSection('3d')" class="nav-btn" id="btn-3d" data-i18n="nav_3d">3D</button></li>
+                <li><button onclick="afficherSection('contact')" class="nav-btn" id="btn-contact" data-i18n="nav_contact">Contact</button></li>
+            </ul>
+
+            <!-- SÉLECTEUR DE LANGUE PUBLIC : FR / NL / EN -->
+            <div class="lang-switcher">
+                <button onclick="changerLangue('fr')" class="lang-btn active" id="lang-fr">FR</button>
+                <span>|</span>
+                <button onclick="changerLangue('nl')" class="lang-btn" id="lang-nl">NL</button>
+                <span>|</span>
+                <button onclick="changerLangue('en')" class="lang-btn" id="lang-en">EN</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main>
+        <!-- SECTION 1 : ACCUEIL (TITRE + BUREAU + BIO + CARROUSELS 3D + LED EN BAS) -->
+        <section id="accueil" class="page-section active">
+            <div class="hero-container">
+                
+                <!-- 1. GRAND TITRE AU-DESSUS DU PC -->
+                <div class="hero-title-wrapper">
+                    <h1 id="accueil-titre">Bienvenue dans mon univers visuel</h1>
+                </div>
+
+                <!-- 2. SCÈNE DIGITALE : IMAGE BUREAU + ÉCRAN VIDÉO SYNCHRONISÉ -->
+                <div class="hero-scene" id="hero-scene">
+                    <div class="hero-visual-wrapper">
+                        <img src="images/bureau-npa.png" alt="Setup Bureau et Fujifilm" class="hero-desk-img">
+                        
+                        <!-- CADRE DE L'ÉCRAN PC : FOND NOIR + VIDÉO + ALLUMAGE/EXTINCTION EN BOUCLE -->
+                        <div class="pc-screen-stage">
+                            <video id="pc-screen-video" class="pc-screen-video" src="videos/video_pc.mp4" muted playsinline preload="auto"></video>
+                            <div class="pc-screen-power-overlay"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. BIOGRAPHIE SOUS LE BUREAU -->
+                <div class="hero-bio-block">
+                    <p class="bio" id="accueil-bio"></p>
+                </div>
+
+                <!-- 4. SECTIONS CARROUSELS 3D FAVORIS (PHOTOS -> VIDÉOS -> DESIGN -> 3D) -->
+                <div id="accueil-carrousels" class="home-carousels-wrapper"></div>
+
+                <!-- 5. TUILES LED NÉON CLIQUABLES (INSTA & E-MAIL) APRÈS LE DERNIER CARROUSEL -->
+                <div class="hero-led-buttons">
+                    <a id="led-link-insta" href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="led-btn-instagram">
+                        <span class="led-text">INSTAGRAM</span>
+                        <div class="led-lights"></div>
+                    </a>
+                    <a id="led-link-mail" href="mailto:contact@monstudio.com" class="led-btn-email">
+                        <span class="led-text">E-MAIL</span>
+                        <div class="led-lights"></div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2 : GALERIE PHOTOS -->
+        <section id="photos" class="page-section">
+            <h2 class="page-title" data-i18n="titre_photos">Galerie Photos</h2>
+            <p class="subtitle" data-i18n="sous_titre_photos">Cliquez sur une photo pour l'afficher en grand</p>
+            <div id="grille-photos" class="masonry-grid"></div>
+        </section>
+
+        <!-- SECTION 3 : GALERIE VIDÉOS -->
+        <section id="videos" class="page-section">
+            <h2 class="page-title" data-i18n="titre_videos">Réalisations Vidéos</h2>
+            <p class="subtitle" data-i18n="sous_titre_videos">Cliquez sur une vidéo pour la visionner en grand</p>
+            <div id="grille-videos" class="video-grid"></div>
+        </section>
+
+        <!-- SECTION 4 : GALERIE DESIGN -->
+        <section id="design" class="page-section">
+            <h2 class="page-title" data-i18n="titre_design">Créations Design</h2>
+            <p class="subtitle" data-i18n="sous_titre_design">Cliquez sur un projet pour explorer ses étapes de création</p>
+            <div id="grille-design" class="masonry-grid"></div>
+        </section>
+
+        <!-- SECTION 5 : GALERIE 3D -->
+        <section id="3d" class="page-section">
+            <h2 class="page-title" data-i18n="titre_3d">Projets & Rendus 3D</h2>
+            <p class="subtitle" data-i18n="sous_titre_3d">Cliquez sur un projet 3D pour explorer ses étapes de création</p>
+            <div id="grille-3d" class="masonry-grid"></div>
+        </section>
+
+        <!-- SECTION 6 : PAGE CONTACT DÉDIÉE -->
+        <section id="contact" class="page-section">
+            <h2 class="page-title" data-i18n="titre_contact">Contact</h2>
+            <p class="subtitle" data-i18n="sous_titre_contact">Une question, un projet ou une collaboration ? Retrouvez-moi ici.</p>
+            
+            <div class="contact-container">
+                <div id="contact-reseaux" class="contact-cards-grid"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 7 : ESPACE ADMINISTRATEUR (ACCÈS SECRET : CTRL + SHIFT + A) -->
+        <section id="admin" class="page-section">
+            <div class="admin-header">
+                <h2>Gestion du Portfolio</h2>
+                <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+                    <button onclick="reinitialiserDepuisDataJS()" class="btn-secondary">🔄 Recharger depuis data.js</button>
+                    <button onclick="exporterFichierDataJS()" class="btn-primary">📥 Télécharger data.js (Publication VS Code)</button>
+                    <button onclick="deconnexionAdmin()" class="btn-danger">Fermer l'Admin</button>
+                </div>
+            </div>
+
+            <!-- BLOC A : PERSONNALISER LA PAGE D'ACCUEIL & CONTACT -->
+            <div class="admin-card">
+                <h3>Personnaliser la page d'accueil & Contact</h3>
+                <p class="admin-hint">Sélectionnez une langue ci-dessous pour rédiger votre titre et votre biographie dans chaque langue.</p>
+                
+                <form id="profil-form" onsubmit="sauvegarderProfil(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="profil-studio">Nom du portfolio (Titre de l'onglet navigateur) :</label>
+                            <input type="text" id="profil-studio" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="profil-email">Votre e-mail de contact :</label>
+                            <input type="email" id="profil-email" placeholder="contact@exemple.com">
+                        </div>
+                    </div>
+
+                    <div class="admin-lang-box">
+                        <div class="admin-lang-tabs">
+                            <button type="button" class="admin-tab-btn active" id="tab-admin-fr" onclick="basculerOngletLangueAdmin('fr')">🇫🇷 Français</button>
+                            <button type="button" class="admin-tab-btn" id="tab-admin-nl" onclick="basculerOngletLangueAdmin('nl')">🇳🇱 Nederlands</button>
+                            <button type="button" class="admin-tab-btn" id="tab-admin-en" onclick="basculerOngletLangueAdmin('en')">🇬🇧 English</button>
+                        </div>
+
+                        <div id="champs-lang-fr" class="admin-lang-panel">
+                            <div class="form-group">
+                                <label for="profil-titre-fr">Grand titre de bienvenue (FR) :</label>
+                                <input type="text" id="profil-titre-fr" required>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="profil-bio-fr">Biographie / présentation (FR) :</label>
+                                <textarea id="profil-bio-fr" rows="3" required></textarea>
+                            </div>
+                        </div>
+
+                        <div id="champs-lang-nl" class="admin-lang-panel hidden">
+                            <div class="form-group">
+                                <label for="profil-titre-nl">Welkomsttitel (NL) :</label>
+                                <input type="text" id="profil-titre-nl" placeholder="Welkom in mijn visuele wereld">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="profil-bio-nl">Biografie / voorstelling (NL) :</label>
+                                <textarea id="profil-bio-nl" rows="3" placeholder="Tekst in het Nederlands..."></textarea>
+                            </div>
+                        </div>
+
+                        <div id="champs-lang-en" class="admin-lang-panel hidden">
+                            <div class="form-group">
+                                <label for="profil-titre-en">Welcome Title (EN) :</label>
+                                <input type="text" id="profil-titre-en" placeholder="Welcome to my visual universe">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="profil-bio-en">Biography / presentation (EN) :</label>
+                                <textarea id="profil-bio-en" rows="3" placeholder="Text in English..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="profil-instagram">Lien Instagram :</label>
+                            <input type="url" id="profil-instagram" placeholder="https://instagram.com/...">
+                        </div>
+                        <div class="form-group">
+                            <label for="profil-youtube">Lien Chaîne YouTube :</label>
+                            <input type="url" id="profil-youtube" placeholder="https://youtube.com/@...">
+                        </div>
+                        <div class="form-group">
+                            <label for="profil-tiktok">Lien TikTok (ou autre) :</label>
+                            <input type="url" id="profil-tiktok" placeholder="https://tiktok.com/@...">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Enregistrer les infos d'accueil</button>
+                    <span id="msg-profil-ok" class="save-feedback hidden">✔ Profil mis à jour !</span>
+                </form>
+            </div>
+
+            <!-- BLOC B : AJOUTER / MODIFIER UN MÉDIA OU UN PROJET BEHANCE -->
+            <div class="admin-card">
+                <h3 id="titre-formulaire">Ajouter un nouveau média</h3>
+                <form id="media-form" onsubmit="sauvegarderMedia(event)">
+                    <input type="hidden" id="media-id">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="media-type">Catégorie / Page de destination :</label>
+                            <select id="media-type" onchange="basculerZoneEtapesBehance()" required>
+                                <option value="photo">Photo</option>
+                                <option value="video">Vidéo (YouTube)</option>
+                                <option value="design">Design (Projet complet façon Behance)</option>
+                                <option value="3d">3D (Projet complet façon Behance)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="media-favori">Mise en avant sur l'accueil :</label>
+                            <label class="fav-checkbox-box">
+                                <input type="checkbox" id="media-favori">
+                                <span>★ Mettre en favori dans le carrousel 3D</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="media-titre">Titre du projet :</label>
+                        <input type="text" id="media-titre" placeholder="Ex: Modélisation 3D / Affiche graphique" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="media-url">Image de couverture principale (URL directe ou lien YouTube) :</label>
+                        <input type="text" id="media-url" placeholder="https://..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="media-desc">Description générale du projet :</label>
+                        <textarea id="media-desc" rows="3" placeholder="Logiciels utilisés (Blender, Photoshop...), contexte..."></textarea>
+                    </div>
+
+                    <!-- ZONE SPÉCIALE SOUS-ÉTAPES BEHANCE (VISIBLE POUR DESIGN ET 3D) -->
+                    <div id="zone-etapes-behance" class="behance-admin-box hidden">
+                        <div class="behance-admin-header">
+                            <div>
+                                <h4>📑 Sous-étapes du projet (Page défilante façon Behance)</h4>
+                                <p class="admin-hint" style="margin-bottom: 0;">Ajoutez les croquis, wireframes, rendus intermédiaires ou vidéos qui apparaîtront quand on clique sur le projet.</p>
+                            </div>
+                            <button type="button" class="btn-secondary" onclick="ajouterChampEtape()">+ Ajouter une sous-étape</button>
+                        </div>
+                        
+                        <div id="liste-champs-etapes"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="btn-submit">Ajouter au portfolio</button>
+                        <button type="button" class="btn-secondary hidden" id="btn-annuler" onclick="reinitialiserFormulaire()">Annuler la modification</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- BLOC C : LISTE DES MÉDIAS PUBLIÉS -->
+            <div class="admin-card">
+                <h3>Médias publiés</h3>
+                <div id="liste-admin" class="admin-list"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- VISIONNEUSE 1 : PLEIN ÉCRAN SIMPLE (POUR PHOTOS & VIDÉOS) -->
+    <div id="visionneuse" class="lightbox hidden" onclick="fermerVisionneuse(event)">
+        <span class="lightbox-close" onclick="fermerVisionneuse(event)">&times;</span>
+        <button id="btn-prev" class="lightbox-nav lightbox-prev" onclick="changerMediaVisionneuse(-1)">&#10094;</button>
+        <div id="visionneuse-contenu" class="lightbox-content"></div>
+        <button id="btn-next" class="lightbox-nav lightbox-next" onclick="changerMediaVisionneuse(1)">&#10095;</button>
+    </div>
+
+    <!-- VISIONNEUSE 2 : PAGE PROJET DÉFILANTE FAÇON BEHANCE (DESIGN & 3D) -->
+    <div id="behance-modal" class="behance-overlay hidden" onclick="fermerBehanceModal(event)" onscroll="mettreAJourProgressionBehance()">
+        
+        <!-- BARRE DE PROGRESSION DE LECTURE CAPSULE MAUVE -->
+        <div class="behance-progress-track">
+            <div id="behance-progress-bar" class="behance-progress-fill"></div>
+        </div>
+
+        <button class="behance-close-btn" onclick="fermerBehanceModal(event)">&times;</button>
+        
+        <div class="behance-sheet">
+            <div class="behance-header">
+                <span id="behance-badge" class="behance-tag">DESIGN</span>
+                <h2 id="behance-titre">Titre du projet</h2>
+                <p id="behance-desc" class="behance-main-desc"></p>
+            </div>
+
+            <div id="behance-stream" class="behance-stream"></div>
+
+            <!-- PIED DE PROJET : BOUTON REVENIR VERS LE HAUT -->
+            <div class="behance-footer">
+                <button type="button" class="btn-scroll-top" onclick="remonterHautBehance()" data-i18n="btn_remonter_haut">↑ Revenir vers le haut</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHARGEMENT DES DONNÉES PUIS DE LA LOGIQUE -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <script>
+        function synchroniserTuilesLED() {
+            if (typeof profil === 'undefined') return;
+            const lienInsta = document.getElementById('led-link-insta');
+            const lienMail = document.getElementById('led-link-mail');
+
+            if (lienInsta) {
+                lienInsta.style.display = profil.instagram ? 'flex' : 'none';
+                if (profil.instagram) lienInsta.href = profil.instagram;
+            }
+            if (lienMail) {
+                lienMail.style.display = profil.email ? 'flex' : 'none';
+                if (profil.email) lienMail.href = 'mailto:' + profil.email;
+            }
+        }
+        window.addEventListener('DOMContentLoaded', synchroniserTuilesLED);
+    </script>
+</body>
+</html>
